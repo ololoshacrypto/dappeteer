@@ -33,13 +33,13 @@ export default async (
       ? location
       : location?.download || path.resolve(defaultDirectory, "download");
 
-  console.log(
-    `Getting MetaMask ${
-      options.flask ? "flask" : ""
-    } extension version: ${version}`
-  );
-  console.log(`extension stored in directory: ${metaMaskDirectory}`);
-  console.log(`downloaded files stored in: ${downloadDirectory}`, "\n");
+  // console.log(
+  //   `Getting MetaMask ${
+  //     options.flask ? "flask" : ""
+  //   } extension version: ${version}`
+  // );
+  // console.log(`extension stored in directory: ${metaMaskDirectory}`);
+  // console.log(`downloaded files stored in: ${downloadDirectory}`, "\n");
 
   if (version !== "latest") {
     let filename = version.replace(/\./g, "_");
@@ -48,9 +48,9 @@ export default async (
     }
     const extractDestination = path.resolve(metaMaskDirectory, filename);
     if (fs.existsSync(extractDestination)) {
-      console.log(
-        "Found already available extension files - skipping download"
-      );
+      // console.log(
+      //   "Found already available extension files - skipping download"
+      // );
       return extractDestination;
     }
   }
@@ -69,13 +69,13 @@ export default async (
       downloadUrl,
       downloadDirectory
     );
-    console.log("Unpacking release");
+    // console.log("Unpacking release");
     const zip = new StreamZip.async({ file: downloadedFile });
     fs.mkdirSync(extractDestination);
     await zip.extract(null, extractDestination);
-    console.log("Unpack successful");
+    // console.log("Unpack successful");
   } else {
-    console.log("Found already available extension files - skipping download");
+    // console.log("Found already available extension files - skipping download");
   }
   return extractDestination;
 };
@@ -109,13 +109,13 @@ const downloadMetaMaskReleases = (
     if (!fs.existsSync(location)) {
       fs.mkdirSync(location, { recursive: true });
     }
-    console.log("Downloading MetaMask release");
+    // console.log("Downloading MetaMask release");
     const fileLocation = path.join(location, name);
     const file = fs.createWriteStream(fileLocation);
     const stream = await request(url);
     stream.pipe(file);
     stream.on("end", () => {
-      console.log("Download successful");
+      // console.log("Download successful");
       resolve(fileLocation);
     });
   });
@@ -128,7 +128,7 @@ const getMetaMaskReleases = (
   flask: boolean
 ): Promise<MetaMaskReleases> =>
   new Promise((resolve, reject) => {
-    console.log("Searching for MetaMask release");
+    // console.log("Searching for MetaMask release");
     const request = get(
       metaMaskReleasesUrl,
       { headers: { "User-Agent": "Mozilla/5.0" } },
@@ -154,7 +154,7 @@ const getMetaMaskReleases = (
                     asset.name.includes("flask") &&
                     asset.name.includes("chrome"))
                 ) {
-                  console.log("Found requested MetaMask release");
+                  // console.log("Found requested MetaMask release");
                   resolve({
                     downloadUrl: asset.browser_download_url,
                     filename: asset.name,

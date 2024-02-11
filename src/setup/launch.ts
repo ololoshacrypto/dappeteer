@@ -26,40 +26,13 @@ export async function launch(
   let metamaskPath: string;
   if (options.metaMaskVersion) {
     const { metaMaskVersion, metaMaskLocation } = options;
-    if (metaMaskVersion === "latest")
-      console.warn(
-        "\x1b[33m%s\x1b[0m",
-        `It is not recommended to run MetaMask with "latest" version. Use it at your own risk or set to the recommended version "${RECOMMENDED_METAMASK_VERSION}".`
-      );
-    else if (isNewerVersion(RECOMMENDED_METAMASK_VERSION, metaMaskVersion))
-      console.warn(
-        "\x1b[33m%s\x1b[0m",
-        `Seems you are running newer version of MetaMask that recommended by dappeteer team.
-      Use it at your own risk or set to the recommended version "${RECOMMENDED_METAMASK_VERSION}".`
-      );
-    else if (isNewerVersion(metaMaskVersion, RECOMMENDED_METAMASK_VERSION))
-      console.warn(
-        "\x1b[33m%s\x1b[0m",
-        `Seems you are running older version of MetaMask that recommended by dappeteer team.
-      Use it at your own risk or set the recommended version "${RECOMMENDED_METAMASK_VERSION}".`
-      );
-    else
-      console.log(
-        `
-        Running tests on MetaMask version ${metaMaskVersion} 
-        Flask version: ${String(options.metaMaskFlask ?? false)}, 
-        Headless: ${String(options.headless)}
-        `
-      );
-
-    console.log(); // new line
 
     metamaskPath = await downloader(metaMaskVersion, {
       location: metaMaskLocation,
       flask: options.metaMaskFlask,
     });
   } else {
-    console.log(`Running tests on local MetaMask build`);
+    // console.log(`Running tests on local MetaMask build`);
 
     metamaskPath = options.metaMaskPath;
   }

@@ -28,7 +28,8 @@ export class DPuppeteerBrowser
 
   async close(): Promise<void> {
     await this.browser.close();
-    fs.rmSync(this.userDataDir, { recursive: true, force: true });
+    // console.log("we dont want to remove dirs");
+    // fs.rmSync(this.userDataDir, { recursive: true, force: true });
   }
 
   async pages(): Promise<DappeteerPage<Page>[]> {
@@ -38,10 +39,9 @@ export class DPuppeteerBrowser
   }
 
   async newPage(): Promise<DappeteerPage<Page>> {
-    return new DPupeteerPage(
-      await this.browser.newPage(),
-      this
-    ) as DappeteerPage<Page>;
+    const page = await this.browser.newPage();
+    await page.setViewport({ width: 1920, height: 1080 });
+    return new DPupeteerPage(page, this) as DappeteerPage<Page>;
   }
 
   getSource(): Browser {

@@ -24,6 +24,8 @@ export interface DappeteerPage<P = unknown> {
 
   bringToFront(): Promise<void>;
 
+  on(...args): any;
+
   goto(
     url: string,
     options?: {

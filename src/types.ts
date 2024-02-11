@@ -56,13 +56,16 @@ export type TransactionOptions = {
 export type Dappeteer = {
   lock: () => Promise<void>;
   unlock: (password: string) => Promise<void>;
+  acceptSwitchNetwork: () => Promise<void>;
   acceptAddNetwork: (shouldSwitch?: boolean) => Promise<void>;
   rejectAddNetwork: () => Promise<void>;
   acceptAddToken: () => Promise<void>;
   rejectAddToken: () => Promise<void>;
   importPK: (pk: string) => Promise<void>;
   switchAccount: (accountNumber: number) => Promise<void>;
-  switchNetwork: (network: string) => Promise<void>;
+  switchNetwork: (
+    network: "mainnet" | "optimism" | "arbitrum" | "base" | "scroll" | "linea"
+  ) => Promise<void>;
   confirmTransaction: (options?: TransactionOptions) => Promise<void>;
   sign: () => Promise<void>;
   signTypedData: () => Promise<void>;

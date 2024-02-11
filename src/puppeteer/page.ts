@@ -2,6 +2,7 @@ import {
   Browser,
   ElementHandle,
   EvaluateFunc,
+  Keyboard,
   NodeFor,
   Page,
   WaitForOptions,
@@ -66,6 +67,10 @@ export class DPupeteerPage implements DappeteerPage<Page> {
 
   bringToFront(): Promise<void> {
     return this.page.bringToFront();
+  }
+
+  get keyboard(): Keyboard {
+    return this.page.keyboard;
   }
 
   async goto(
@@ -162,6 +167,11 @@ export class DPupeteerPage implements DappeteerPage<Page> {
 
   async waitForNavigation(options: WaitForOptions): Promise<Response | null> {
     return this.page.waitForNavigation(options);
+  }
+
+  on(...args: any[]): any {
+    // @ts-ignore
+    return this.page.on(...args);
   }
 
   type(

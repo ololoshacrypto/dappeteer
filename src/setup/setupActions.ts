@@ -69,6 +69,7 @@ export async function importAccount(
   }: MetaMaskOptions
 ): Promise<void> {
   await waitForOverlay(metaMaskPage);
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   await clickOnElement(metaMaskPage, "onboarding-terms-checkbox");
   await clickOnButton(metaMaskPage, "onboarding-import-wallet");
   await clickOnButton(metaMaskPage, "metametrics-i-agree");
@@ -96,6 +97,7 @@ export async function importAccount(
 }
 
 export const closePopup = async (page: DappeteerPage): Promise<void> => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   await evaluateElementClick(page, ".popover-header__button");
 };
 
@@ -108,6 +110,7 @@ export const closeWhatsNewModal = async (
 export const closePrivacyWarningModal = async (
   page: DappeteerPage
 ): Promise<void> => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   await clickOnButton(page, "snap-privacy-warning-scroll");
   await page.waitForTimeout(1000);
   await clickOnButton(page, "Accept");

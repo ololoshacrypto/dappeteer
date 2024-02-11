@@ -22,10 +22,17 @@ export const confirmTransaction =
     await retry(async () => {
       await page.bringToFront();
       await page.reload();
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       await waitForOverlay(page);
-      await getElementByTestId(page, "edit-gas-fee-button", {
-        timeout: 500,
-      });
+      if (options && (options.priority || options.gas || options.gasLimit)) {
+        await getElementByTestId(page, "edit-gas-fee-button", {
+          timeout: 500,
+        });
+      } else {
+        await getElementByTestId(page, "page-container-footer-next", {
+          timeout: 500,
+        });
+      }
     }, 15);
 
     if (options) {
