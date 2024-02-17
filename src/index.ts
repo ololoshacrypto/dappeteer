@@ -26,3 +26,5 @@ export {
   DEFAULT_METAMASK_USERDATA,
   DEFAULT_FLASK_USERDATA,
 } from "./constants";
+
+export { clickOnButton } from "./helpers";

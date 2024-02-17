@@ -1,3 +1,4 @@
+import { Keyboard } from "puppeteer";
 import { DappeteerElementHandle } from "./element";
 import { DappeteerBrowser } from "./browser";
 
@@ -23,6 +24,8 @@ export interface DappeteerPage<P = unknown> {
   browser(): DappeteerBrowser;
 
   bringToFront(): Promise<void>;
+
+  keyboard: Keyboard;
 
   on(...args): any;
 

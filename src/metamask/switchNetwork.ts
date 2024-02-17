@@ -53,7 +53,7 @@ export const switchNetwork =
     await page.waitForTimeout(1500);
     try {
       await page.evaluate(() => {
-        const btn = document.querySelector(
+        const btn: HTMLElement = document.querySelector(
           ".popover-header__title h2 + button"
         );
         if (btn) {

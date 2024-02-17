@@ -64,7 +64,14 @@ export type Dappeteer = {
   importPK: (pk: string) => Promise<void>;
   switchAccount: (accountNumber: number) => Promise<void>;
   switchNetwork: (
-    network: "mainnet" | "optimism" | "arbitrum" | "base" | "scroll" | "linea"
+    network:
+      | "mainnet"
+      | "optimism"
+      | "arbitrum"
+      | "base"
+      | "scroll"
+      | "linea"
+      | "zksync"
   ) => Promise<void>;
   confirmTransaction: (options?: TransactionOptions) => Promise<void>;
   sign: () => Promise<void>;
