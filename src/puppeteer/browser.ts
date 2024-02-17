@@ -11,12 +11,19 @@ export class DPuppeteerBrowser
   extends EventEmitter
   implements DappeteerBrowser<Browser, Page>
 {
+  private width: number;
+  private height: number;
+
   constructor(
     protected browser: Browser,
     protected userDataDir: string,
-    protected flask: boolean = false
+    protected flask: boolean = false,
+    width = 1920,
+    height = 1080
   ) {
     super();
+    this.width = width;
+    this.height = height;
     this.browser.on("targetcreated", (page) =>
       this.emit("targetcreated", page)
     );
@@ -40,7 +47,7 @@ export class DPuppeteerBrowser
 
   async newPage(): Promise<DappeteerPage<Page>> {
     const page = await this.browser.newPage();
-    await page.setViewport({ width: 1920, height: 1080 });
+    await page.setViewport({ width: this.width, height: this.height });
     return new DPupeteerPage(page, this) as DappeteerPage<Page>;
   }
 
