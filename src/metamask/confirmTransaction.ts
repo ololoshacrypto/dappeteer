@@ -10,6 +10,9 @@ import { DappeteerPage } from "../page";
 
 import { GetSingedIn } from "./index";
 
+const delay = (ms: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
 export const confirmTransaction =
   (page: DappeteerPage, getSingedIn: GetSingedIn) =>
   async (options?: TransactionOptions): Promise<void> => {
@@ -52,7 +55,7 @@ export const confirmTransaction =
         await typeOnInputField(
           page,
           "Max base fee", // base-fee-input
-          String(options.priority),
+          String(options.gas),
           true,
           true,
           true
@@ -70,6 +73,7 @@ export const confirmTransaction =
       }
 
       await clickOnButton(page, "Save");
+      await delay(5000);
     }
 
     await page.waitForSelector(

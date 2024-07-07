@@ -27,7 +27,12 @@ export class DPuppeteerElementHandle
     if (value === "") {
       //hack as there is no clear method in puppeteer
       await this.element.click({ clickCount: 3 });
-      await this.element.press("Backspace");
+
+      for (let i = 0; i < 15; i++) {
+        await this.element.press("Backspace");
+      }
+
+      return;
     }
     return this.element.type(value);
   }
